@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property string $id
  * @property string $title
+ * @property int $likes
+ * @property int $views
  * @property string $user_id
  * @property string $topic_id
  * @property null|CarbonInterface $pinned_at
@@ -27,6 +29,8 @@ final class Discussion extends Model
 
     protected $fillable = [
         'title',
+        'likes',
+        'views',
         'user_id',
         'topic_id',
         'pinned_at',

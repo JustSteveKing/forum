@@ -15,6 +15,9 @@ return new class extends Migration
 
             $table->string('title');
 
+            $table->unsignedBigInteger('likes')->default(0);
+            $table->unsignedBigInteger('views')->default(0);
+
             $table
                 ->foreignUlid('user_id')
                 ->nullable()

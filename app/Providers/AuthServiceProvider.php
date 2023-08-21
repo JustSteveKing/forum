@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use App\Models\Discussion;
 use App\Models\Post;
 use App\Policies\DiscussionPolicy;
@@ -15,12 +14,4 @@ class AuthServiceProvider extends ServiceProvider
         Discussion::class => DiscussionPolicy::class,
         Post::class => PostPolicy::class,
     ];
-
-    /**
-     * Register any authentication / authorization services.
-     */
-    public function boot(): void
-    {
-        //
-    }
 }

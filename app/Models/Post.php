@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property string  $id
  * @property string $content
+ * @property int $likes
  * @property string $user_id
  * @property string $discussion_id
  * @property null|string $parent_id
@@ -28,6 +29,7 @@ final class Post extends Model
 
     protected $fillable = [
         'content',
+        'likes',
         'user_id',
         'discussion_id',
         'parent_id',

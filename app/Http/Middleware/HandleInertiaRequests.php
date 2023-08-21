@@ -1,39 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
+use App\Enums\CacheTime;
+use App\Http\Resources\Web\DiscussionResource;
+use App\Models\Discussion;
+use App\Models\Topic;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
-class HandleInertiaRequests extends Middleware
+final class HandleInertiaRequests extends Middleware
 {
-    /**
-     * The root template that is loaded on the first page visit.
-     *
-     * @var string
-     */
-    protected $rootView = 'app';
-
-    /**
-     * Determine the current asset version.
-     */
-    public function version(Request $request): string|null
-    {
-        return parent::version($request);
-    }
-
-    /**
-     * Define the props that are shared by default.
-     *
-     * @return array<string, mixed>
-     */
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
             ],
+            'topics' => Cache::remember(
+                key: 'topics',
+                ttl: CacheTime::HOUR->value * 2,
+                callback: static fn (): Collection|array => Topic::query()->get(),
+            ),
+            'trending' => Cache::remember(
+                key: 'trending',
+                ttl: CacheTime::HOUR->value * 2,
+                callback: static fn (): AnonymousResourceCollection => DiscussionResource::collection(
+                    resource: Discussion::query()->with(['user'])->orderBy('likes')->limit(5)->get(),
+                ),
+            ),
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),

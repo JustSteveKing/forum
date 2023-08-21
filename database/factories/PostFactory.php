@@ -17,6 +17,7 @@ final class PostFactory extends Factory
     {
         return [
             'content' => $this->faker->realText(),
+            'likes' => 0,
             'user_id' => User::factory(),
             'discussion_id' => Discussion::factory(),
             'parent_id' => null,

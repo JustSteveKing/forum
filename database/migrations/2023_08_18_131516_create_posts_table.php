@@ -15,6 +15,8 @@ return new class extends Migration
 
             $table->text('content');
 
+            $table->unsignedBigInteger('likes')->default(0);
+
             $table
                 ->foreignUlid('user_id')
                 ->nullable()

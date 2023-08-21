@@ -17,6 +17,8 @@ final class DiscussionFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
+            'likes' => 0,
+            'views' => 0,
             'user_id' => User::factory(),
             'topic_id' => Topic::factory(),
             'pinned_at' => null,
