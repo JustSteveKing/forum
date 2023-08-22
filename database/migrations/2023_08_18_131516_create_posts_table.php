@@ -30,11 +30,9 @@ return new class () extends Migration {
                 ->cascadeOnDelete();
 
             $table
-                ->foreignUlid('parent_id')
+                ->ulid('parent_id')
                 ->nullable()
-                ->index()
-                ->constrained('posts')
-                ->nullOnDelete();
+                ->index();
 
             $table->timestamps();
         });
