@@ -23,6 +23,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $password
  * @property null|string $remember_token
  * @property null|string $avatar
+ * @property null|string $provider
+ * @property null|string $provider_id
+ * @property null|string $access_token
  * @property null|CarbonInterface $email_verified_at
  * @property null|CarbonInterface $created_at
  * @property null|CarbonInterface $updated_at
@@ -42,11 +45,15 @@ final class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'avatar',
+        'provider',
+        'provider_id',
+        'access_token',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'access_token',
     ];
 
     protected $casts = [

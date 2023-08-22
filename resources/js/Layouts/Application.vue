@@ -41,7 +41,7 @@ const userNavigation = [
           <div class="relative flex justify-between lg:gap-8 xl:grid xl:grid-cols-12">
             <div class="flex md:absolute md:inset-y-0 md:left-0 lg:static xl:col-span-2">
               <div class="flex flex-shrink-0 items-center">
-                <a href="#" class="text-transparent bg-clip-text bg-gradient-to-bl from-indigo-500 to-pink-400">
+                <a href="#" class="text-indigo-400">
                   <svg class="block h-8 w-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"></path>
                   </svg>
@@ -74,15 +74,14 @@ const userNavigation = [
               </PopoverButton>
             </div>
             <div class="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
-              <a href="#" class="text-sm font-medium text-gray-900 hover:underline">Go Premium</a>
-              <a href="#"
-                 class="ml-5 flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
-                <span class="sr-only">View notifications</span>
-                <BellIcon class="h-6 w-6" aria-hidden="true"/>
-              </a>
-
               <!-- Profile dropdown -->
               <template v-if="user">
+                <a href="#"
+                   class="ml-5 flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
+                  <span class="sr-only">View notifications</span>
+                  <BellIcon class="h-6 w-6" aria-hidden="true"/>
+                </a>
+
                 <Menu as="div" class="relative ml-5 flex-shrink-0">
                   <div>
                     <MenuButton
@@ -109,15 +108,18 @@ const userNavigation = [
                     </MenuItems>
                   </transition>
                 </Menu>
+
+                <a href="#" class="ml-6 inline-flex items-center rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600">
+                  New Discussion
+                </a>
               </template>
               <template v-else>
-                <Link :href="route('login')">Sign In</Link>
+                <div class="space-x-8">
+                  <Link :href="route('login')">Sign In</Link>
+                  <Link :href="route('register')">Register</Link>
+                </div>
               </template>
 
-
-              <a href="#"
-                 class="ml-6 inline-flex items-center rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600">New
-                Post</a>
             </div>
           </div>
         </div>

@@ -20,6 +20,7 @@ final class DiscussionResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->title,
             'views' => $this->resource->views,
+            'likes' => $this->resource->likes,
             'topic' => new TopicResource(
                 resource: $this->whenLoaded(
                     relationship: 'topic',

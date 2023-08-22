@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\GitHub\CallbackController;
+use App\Http\Controllers\Auth\GitHub\RedirectController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -35,6 +37,11 @@ Route::middleware('guest')->group(function (): void {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+    Route::prefix('auth/github')->as('auth:github:')->group(static function (): void {
+        Route::get('redirect', RedirectController::class)->name('redirect');
+        Route::get('callback', CallbackController::class)->name('callback');
+    });
 });
 
 Route::middleware('auth')->group(function (): void {

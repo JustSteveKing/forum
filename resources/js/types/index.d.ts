@@ -28,11 +28,17 @@ export interface Topic {
     slug: string;
 }
 
+export interface Provider {
+    name?: string;
+    id?: string;
+}
+
 export interface User {
     id: number;
     name: string;
     email: string;
     avatar: string;
+    provider?: Provider;
     verified: Date;
 }
 
