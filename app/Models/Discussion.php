@@ -56,7 +56,7 @@ final class Discussion extends Model
         );
     }
 
-    public function  posts(): HasMany
+    public function posts(): HasMany
     {
         return $this->hasMany(
             related: Post::class,

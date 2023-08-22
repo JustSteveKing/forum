@@ -10,5 +10,6 @@ trait HasInertiaResponse
 {
     public function __construct(
         private readonly ResponseFactory $response,
-    ) {}
+    ) {
+    }
 }

@@ -16,6 +16,6 @@ final class PostPolicy
 
     public function delete(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id && ! is_null($post->parent_id);
+        return $user->id === $post->user_id && null !== $post->parent_id;
     }
 }

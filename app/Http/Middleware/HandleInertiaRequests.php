@@ -6,11 +6,13 @@ namespace App\Http\Middleware;
 
 use App\Enums\CacheTime;
 use App\Http\Resources\Web\DiscussionResource;
+use App\Http\Resources\Web\UserResource;
 use App\Models\Discussion;
 use App\Models\Topic;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -21,7 +23,10 @@ final class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
+                'user' => Auth::check()
+                    ? new UserResource(
+                        resource: $request->user(),
+                    ) : null,
             ],
             'topics' => Cache::remember(
                 key: 'topics',
@@ -36,7 +41,7 @@ final class HandleInertiaRequests extends Middleware
                 ),
             ),
             'ziggy' => function () use ($request) {
-                return array_merge((new Ziggy)->toArray(), [
+                return array_merge((new Ziggy())->toArray(), [
                     'location' => $request->url(),
                 ]);
             },

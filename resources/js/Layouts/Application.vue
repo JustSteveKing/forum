@@ -3,6 +3,7 @@ import { Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverP
 import {
   MagnifyingGlassIcon,
 } from '@heroicons/vue/20/solid'
+import { Link } from "@inertiajs/vue3";
 import {
   ArrowTrendingUpIcon,
   Bars3Icon,
@@ -12,22 +13,20 @@ import {
   UserGroupIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
+import {usePage} from "@inertiajs/vue3";
 
-const user = {
-  name: 'Chelsea Hagon',
-  email: 'chelsea.hagon@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+const user = usePage().props.auth.user
+
 const navigation = [
   { name: 'Home', href: '#', icon: HomeIcon, current: true },
   { name: 'Popular', href: '#', icon: FireIcon, current: false },
   { name: 'Communities', href: '#', icon: UserGroupIcon, current: false },
   { name: 'Trending', href: '#', icon: ArrowTrendingUpIcon, current: false },
 ]
+
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
+  { name: 'Settings', href: route('profile.edit') },
   { name: 'Sign out', href: '#' },
 ]
 </script>
@@ -42,9 +41,10 @@ const userNavigation = [
           <div class="relative flex justify-between lg:gap-8 xl:grid xl:grid-cols-12">
             <div class="flex md:absolute md:inset-y-0 md:left-0 lg:static xl:col-span-2">
               <div class="flex flex-shrink-0 items-center">
-                <a href="#">
-                  <img class="block h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=rose&shade=500"
-                       alt="Your Company"/>
+                <a href="#" class="text-transparent bg-clip-text bg-gradient-to-bl from-indigo-500 to-pink-400">
+                  <svg class="block h-8 w-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"></path>
+                  </svg>
                 </a>
               </div>
             </div>
@@ -82,32 +82,38 @@ const userNavigation = [
               </a>
 
               <!-- Profile dropdown -->
-              <Menu as="div" class="relative ml-5 flex-shrink-0">
-                <div>
-                  <MenuButton
-                    class="relative flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
-                    <span class="absolute -inset-1.5"/>
-                    <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt=""/>
-                  </MenuButton>
-                </div>
-                <transition enter-active-class="transition ease-out duration-100"
-                            enter-from-class="transform opacity-0 scale-95"
-                            enter-to-class="transform opacity-100 scale-100"
-                            leave-active-class="transition ease-in duration-75"
-                            leave-from-class="transform opacity-100 scale-100"
-                            leave-to-class="transform opacity-0 scale-95">
-                  <MenuItems
-                    class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                      <a :href="item.href"
-                         :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{
-                          item.name
-                        }}</a>
-                    </MenuItem>
-                  </MenuItems>
-                </transition>
-              </Menu>
+              <template v-if="user">
+                <Menu as="div" class="relative ml-5 flex-shrink-0">
+                  <div>
+                    <MenuButton
+                        class="relative flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
+                      <span class="absolute -inset-1.5"/>
+                      <span class="sr-only">Open user menu</span>
+                      <img class="h-8 w-8 rounded-full" :src="user.avatar" alt=""/>
+                    </MenuButton>
+                  </div>
+                  <transition enter-active-class="transition ease-out duration-100"
+                              enter-from-class="transform opacity-0 scale-95"
+                              enter-to-class="transform opacity-100 scale-100"
+                              leave-active-class="transition ease-in duration-75"
+                              leave-from-class="transform opacity-100 scale-100"
+                              leave-to-class="transform opacity-0 scale-95">
+                    <MenuItems
+                        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
+                        <a :href="item.href"
+                           :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{
+                            item.name
+                          }}</a>
+                      </MenuItem>
+                    </MenuItems>
+                  </transition>
+                </Menu>
+              </template>
+              <template v-else>
+                <Link :href="route('login')">Sign In</Link>
+              </template>
+
 
               <a href="#"
                  class="ml-6 inline-flex items-center rounded-md bg-rose-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600">New

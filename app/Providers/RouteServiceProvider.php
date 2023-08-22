@@ -18,7 +18,7 @@ final class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for(
             name: 'api',
-            callback: static fn(Request $request): Limit => Limit::perMinute(
+            callback: static fn (Request $request): Limit => Limit::perMinute(
                 maxAttempts: 60,
             )->by(
                 key: $request->user()?->id ?: $request->ip(),
