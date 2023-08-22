@@ -5,6 +5,7 @@ import {
   HandThumbUpIcon,
 } from "@heroicons/vue/24/outline"
 import {Discussion} from "@/types";
+import { Link } from "@inertiajs/vue3";
 
 const props = defineProps<{
   discussion: Discussion;
@@ -13,7 +14,7 @@ const props = defineProps<{
 
 <template>
   <article :aria-labelledby="'question-title-' + props.discussion.id">
-    <div>
+    <Link :href="route('discussions:show', props.discussion.id)">
       <div class="flex space-x-3">
         <div class="flex-shrink-0">
           <img class="h-10 w-10 rounded-full" :src="props.discussion.user.avatar" alt=""/>
@@ -32,7 +33,7 @@ const props = defineProps<{
       <h2 :id="'question-title-' + props.discussion.id" class="mt-4 text-base font-medium text-gray-900">
         {{ props.discussion.title }}
       </h2>
-    </div>
+    </Link>
     <div class="mt-6 flex justify-between space-x-8">
       <div class="flex space-x-6">
         <span class="inline-flex items-center text-sm">

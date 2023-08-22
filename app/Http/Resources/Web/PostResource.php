@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Web;
 
+use App\Http\Resources\DateResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -37,6 +38,9 @@ final class PostResource extends JsonResource
                 resource: $this->whenLoaded(
                     relationship: 'posts',
                 ),
+            ),
+            'created' => new DateResource(
+                resource: $this->resource->created_at,
             ),
         ];
     }

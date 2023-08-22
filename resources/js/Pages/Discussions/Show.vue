@@ -1,26 +1,19 @@
 <script setup lang="ts">
 import {Application} from "@/Layouts";
-import {usePage} from "@inertiajs/vue3";
 import {Discussion} from "@/types";
-import {
-  DiscussionCard,
-  StartDiscussion
-} from "@/Components/UI";
-
-import {
-  HandThumbUpIcon,
-} from '@heroicons/vue/24/outline'
+import {HandThumbUpIcon} from "@heroicons/vue/24/outline";
+import {usePage} from "@inertiajs/vue3";
+import {AddPost,DiscussionCard,PostCard} from "@/Components/UI";
 
 const page = usePage().props
 
 const props = defineProps<{
-  discussions: Array<Discussion>;
+  discussion: Discussion;
 }>();
 </script>
 
 <template>
   <Application>
-
     <template #sidenav>
       <nav aria-label="Sidebar" class="sticky top-4 divide-y divide-gray-300">
         <div class="space-y-1 pb-8">
@@ -37,11 +30,18 @@ const props = defineProps<{
 
     <template #default>
       <div class="space-y-6">
-        <StartDiscussion />
+        <DiscussionCard :discussion="props.discussion" />
+
+
         <h1 class="sr-only">Recent discussions</h1>
+
+
         <ul role="list" class="space-y-4">
-          <li v-for="item in props.discussions" :key="item.id" class="bg-white px-4 py-6 shadow sm:rounded-lg sm:p-6">
-            <DiscussionCard :discussion="item" />
+          <li>
+            <AddPost :discussion="props.discussion.id" />
+          </li>
+          <li v-for="post in props.discussion.posts" :key="post.id" class="bg-white px-4 py-6 shadow sm:rounded-lg sm:p-6">
+            <PostCard :post="post" />
           </li>
         </ul>
       </div>
@@ -83,6 +83,5 @@ const props = defineProps<{
         </section>
       </div>
     </template>
-
   </Application>
 </template>

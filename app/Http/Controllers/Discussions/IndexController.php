@@ -16,7 +16,7 @@ final class IndexController
 
     public function __invoke(Request $request): Response
     {
-        $discussions = Discussion::query()->with(['user','topic','posts.user'])->get();
+        $discussions = Discussion::query()->with(['user','topic','posts.user'])->latest()->get();
 
         return $this->response->render(
             component: 'Discussions/Index',
