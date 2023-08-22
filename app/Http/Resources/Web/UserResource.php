@@ -20,7 +20,7 @@ final class UserResource extends JsonResource
             'id' => $this->resource->id,
             'name' => $this->resource->name,
             'email' => $this->resource->email,
-            'avatar' => "https://unavatar.io/{$this->resource->email}",
+            'avatar' => $this->resource->avatar ?? "https://unavatar.io/{$this->resource->email}",
             'verified' => new DateResource(
                 resource: $this->resource->email_verified_at,
             ),

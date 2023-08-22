@@ -24,6 +24,7 @@ final class UserFactory extends Factory
                 value: 'password',
             ),
             'remember_token' => Str::random(10),
+            'avatar' => null,
         ];
     }
 
