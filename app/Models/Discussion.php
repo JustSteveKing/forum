@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Searchable;
 
 /**
  * @property string $id
@@ -26,6 +28,7 @@ final class Discussion extends Model
 {
     use HasFactory;
     use HasUlids;
+    use Searchable;
 
     protected $fillable = [
         'title',
@@ -39,6 +42,15 @@ final class Discussion extends Model
     protected $casts = [
         'pinned_at' => 'datetime',
     ];
+
+    #[SearchUsingFullText(['title'])]
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+        ];
+    }
 
     public function user(): BelongsTo
     {
