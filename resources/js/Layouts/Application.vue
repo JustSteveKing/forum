@@ -40,7 +40,6 @@ const fetchResults = async (search: string) => {
     } else {
       searchResults.value = [];
     }
-    console.log(response.data)
   })
 }
 
@@ -102,7 +101,9 @@ const userNavigation = [
                     </div>
                     <input id="search" name="search"
                            class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-500 sm:text-sm sm:leading-6"
-                           placeholder="Search" type="search"/>
+                           placeholder="Search" type="search"
+                           @click="search = !search"
+                    />
                   </div>
                 </div>
               </div>
@@ -235,7 +236,7 @@ const userNavigation = [
                   <div :class="['max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4', activeOption && 'sm:h-96']">
                     <div class="-mx-2 text-sm text-gray-700">
                       <ComboboxOption
-                          v-for="(result, index) in searchResults"
+                          v-for="(result, index) in filteredResults"
                           :key="index"
                           :value="result"
                           as="template"
