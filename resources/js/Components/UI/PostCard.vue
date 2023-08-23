@@ -9,7 +9,7 @@ const props = defineProps<{
 
 <template>
   <article :aria-labelledby="'question-title-' + props.post.id">
-    <Link>
+    <Link href="/">
       <div class="flex space-x-3">
         <div class="flex-shrink-0">
           <img class="h-10 w-10 rounded-full" :src="props.post.user.avatar" alt=""/>

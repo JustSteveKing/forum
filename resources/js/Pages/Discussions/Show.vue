@@ -3,7 +3,7 @@ import {Application} from "@/Layouts";
 import {Discussion} from "@/types";
 import {HandThumbUpIcon} from "@heroicons/vue/24/outline";
 import {usePage} from "@inertiajs/vue3";
-import {AddPost,DiscussionCard,PostCard} from "@/Components/UI";
+import {AddPost,DiscussionCard,PostCard,TopicSideBar} from "@/Components/UI";
 
 const page = usePage().props
 
@@ -15,17 +15,7 @@ const props = defineProps<{
 <template>
   <Application>
     <template #sidenav>
-      <nav aria-label="Sidebar" class="sticky top-4 divide-y divide-gray-300">
-        <div class="space-y-1 pb-8">
-          <p class="px-3 text-sm font-medium text-gray-500" id="communities-headline">
-            Topics
-          </p>
-          <a v-for="topic in page.topics" :key="topic.id" :href="topic.slug"
-             class="group flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
-            <span class="truncate">{{ topic.title }}</span>
-          </a>
-        </div>
-      </nav>
+      <TopicSideBar />
     </template>
 
     <template #default>

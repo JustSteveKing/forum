@@ -26,6 +26,7 @@ export interface Topic {
     id: string;
     title: string;
     slug: string;
+    discussions: Discussion[];
 }
 
 export interface Provider {

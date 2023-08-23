@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import {Application} from "@/Layouts";
-import {usePage} from "@inertiajs/vue3";
+import {usePage, Link} from "@inertiajs/vue3";
 import {Discussion} from "@/types";
 import {
   DiscussionCard,
-  StartDiscussion
+  StartDiscussion,
+  TopicSideBar,
 } from "@/Components/UI";
 
 import {
@@ -22,30 +23,20 @@ const props = defineProps<{
   <Application>
 
     <template #sidenav>
-      <nav aria-label="Sidebar" class="sticky top-4 divide-y divide-gray-300">
-        <div class="space-y-1 pb-8">
-          <p class="px-3 text-sm font-medium text-gray-500" id="communities-headline">
-            Topics
-          </p>
-          <a v-for="topic in page.topics" :key="topic.id" :href="topic.slug"
-             class="group flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
-            <span class="truncate">{{ topic.title }}</span>
-          </a>
-        </div>
-      </nav>
+      <TopicSideBar />
     </template>
 
     <template #default>
       <div class="space-y-6">
 
         <template v-if="page.auth.user">
-            <StartDiscussion />
+          <StartDiscussion/>
         </template>
 
         <h1 class="sr-only">Recent discussions</h1>
         <ul role="list" class="space-y-4">
           <li v-for="item in props.discussions" :key="item.id" class="bg-white px-4 py-6 shadow sm:rounded-lg sm:p-6">
-            <DiscussionCard :discussion="item" />
+            <DiscussionCard :discussion="item"/>
           </li>
         </ul>
       </div>
@@ -56,7 +47,9 @@ const props = defineProps<{
         <section aria-labelledby="trending-heading">
           <div class="rounded-lg bg-white shadow">
             <div class="p-6">
-              <h2 id="trending-heading" class="text-base font-medium text-gray-900">Trending</h2>
+              <h2 id="trending-heading" class="text-base font-medium text-gray-900">
+                Trending Discussions
+              </h2>
               <div class="mt-6 flow-root">
                 <ul role="list" class="-my-4 divide-y divide-gray-200">
                   <li v-for="discussion in page.trending" :key="discussion.id" class="flex space-x-3 py-4">
@@ -78,9 +71,10 @@ const props = defineProps<{
                 </ul>
               </div>
               <div class="mt-6">
-                <a href="#" class="block w-full rounded-md bg-white px-3 py-2 text-center text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">
+                <Link :href="route('home')"
+                   class="block w-full rounded-md bg-white px-3 py-2 text-center text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">
                   View all
-                </a>
+                </Link>
               </div>
             </div>
           </div>

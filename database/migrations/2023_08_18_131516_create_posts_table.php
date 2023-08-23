@@ -29,13 +29,6 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table
-                ->foreignUlid('parent_id')
-                ->nullable()
-                ->index()
-                ->constrained('posts')
-                ->nullOnDelete();
-
             $table->timestamps();
         });
     }

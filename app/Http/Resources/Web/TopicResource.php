@@ -19,6 +19,11 @@ final class TopicResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->title,
             'slug' => $this->resource->slug,
+            'discussions' => DiscussionResource::collection(
+                resource: $this->whenLoaded(
+                    relationship: 'discussions',
+                ),
+            ),
         ];
     }
 }

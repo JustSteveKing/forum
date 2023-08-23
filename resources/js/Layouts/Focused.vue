@@ -33,9 +33,11 @@ const userNavigation = [
 <template>
   <div class="min-h-full">
 
+    <slot name="slideover" />
+
     <Popover as="template" v-slot="{ open }">
       <header
-        :class="[open ? 'fixed inset-0 z-40 overflow-y-auto' : '', 'bg-white shadow-sm lg:static lg:overflow-y-visible']">
+          :class="[open ? 'fixed inset-0 z-40 overflow-y-auto' : '', 'bg-white shadow-sm lg:static lg:overflow-y-visible']">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="relative flex justify-between lg:gap-8 xl:grid xl:grid-cols-12">
             <div class="flex md:absolute md:inset-y-0 md:left-0 lg:static xl:col-span-2">
@@ -65,7 +67,7 @@ const userNavigation = [
             <div class="flex items-center md:absolute md:inset-y-0 md:right-0 lg:hidden">
               <!-- Mobile menu button -->
               <PopoverButton
-                class="relative -mx-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500">
+                  class="relative -mx-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500">
                 <span class="absolute -inset-0.5"/>
                 <span class="sr-only">Open menu</span>
                 <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true"/>
@@ -170,17 +172,11 @@ const userNavigation = [
 
     <div class="py-10">
       <div class="mx-auto max-w-3xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-8 lg:px-8">
-        <div class="hidden lg:col-span-3 lg:block xl:col-span-2">
-          <slot name="sidenav" />
-        </div>
 
-        <main class="lg:col-span-9 xl:col-span-6">
+        <main class="lg:col-span-12 xl:col-span-12">
           <slot />
         </main>
 
-        <aside class="hidden xl:col-span-4 xl:block">
-          <slot name="sidebar" />
-        </aside>
       </div>
     </div>
   </div>
