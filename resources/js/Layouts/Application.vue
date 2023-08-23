@@ -25,44 +25,34 @@ import {
   TransitionRoot,
 } from '@headlessui/vue'
 
-const people = [
-  {
-    id: 1,
-    name: 'Leslie Alexander',
-    phone: '1-493-747-9031',
-    email: 'lesliealexander@example.com',
-    role: 'Co-Founder / CEO',
-    url: 'https://example.com',
-    profileUrl: '#',
-    imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  // More people...
-]
-
 const fetchResults = async (search: string) => {
-  const { data } = await axios.get(route('search'), {
+  if(search.length < 2){
+    searchResults.value = [];
+    return;
+  }
+  await axios.get(route('search'), {
     params: {
       search: search,
     }
+  }).then(response => {
+    if(response.status === 200){
+      searchResults.value = response.data
+    } else {
+      searchResults.value = [];
+    }
+    console.log(response.data)
   })
-
-  console.log(data)
-
-  return data
 }
 
 const search = ref(true)
 const query = ref('')
+let searchResults = ref([]);
 
-const results = (query: string) => {
-  return fetchResults(query)
-}
 
 const filteredResults = computed(() =>
     query.value === ''
         ? []
-        : results(query.value)
+        : searchResults.value
 )
 
 function onSelect(person) {
@@ -235,7 +225,7 @@ const userNavigation = [
               <Combobox v-slot="{ activeOption }" @update:modelValue="onSelect">
                 <div class="relative">
                   <MagnifyingGlassIcon class="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                  <ComboboxInput class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search..." @change="query = $event.target.value" />
+                  <ComboboxInput class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search..." @change="query = $event.target.value, fetchResults(query)"/>
                 </div>
 
                 <ComboboxOptions
@@ -245,7 +235,7 @@ const userNavigation = [
                   <div :class="['max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4', activeOption && 'sm:h-96']">
                     <div class="-mx-2 text-sm text-gray-700">
                       <ComboboxOption
-                          v-for="(result, index) in filteredResults"
+                          v-for="(result, index) in searchResults"
                           :key="index"
                           :value="result"
                           as="template"
