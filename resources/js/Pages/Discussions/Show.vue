@@ -30,6 +30,7 @@ const props = defineProps<{
 
     <template #default>
       <div class="space-y-6">
+
         <DiscussionCard :discussion="props.discussion" />
 
 
@@ -37,7 +38,7 @@ const props = defineProps<{
 
 
         <ul role="list" class="space-y-4">
-          <li>
+          <li v-if="page.auth.user">
             <AddPost :discussion="props.discussion.id" />
           </li>
           <li v-for="post in props.discussion.posts" :key="post.id" class="bg-white px-4 py-6 shadow sm:rounded-lg sm:p-6">

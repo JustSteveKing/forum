@@ -37,7 +37,11 @@ const props = defineProps<{
 
     <template #default>
       <div class="space-y-6">
-        <StartDiscussion />
+
+        <template v-if="page.auth.user">
+            <StartDiscussion />
+        </template>
+
         <h1 class="sr-only">Recent discussions</h1>
         <ul role="list" class="space-y-4">
           <li v-for="item in props.discussions" :key="item.id" class="bg-white px-4 py-6 shadow sm:rounded-lg sm:p-6">
