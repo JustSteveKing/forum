@@ -11,10 +11,10 @@
     "php": "^8.2",
     "guzzlehttp/guzzle": "^7.7",
     "inertiajs/inertia-laravel": "^0.6.9",
-    "laravel/framework": "^10.19",
-    "laravel/sanctum": "^3.2.5",
-    "laravel/scout": "^10.2",
-    "laravel/socialite": "^5.8",
+    "laravel/framework": "^10.20",
+    "laravel/sanctum": "^3.2.6",
+    "laravel/scout": "^10.2.4",
+    "laravel/socialite": "^5.8.1",
     "laravel/tinker": "^2.8.1",
     "tightenco/ziggy": "^1.6.2"
   },
@@ -29,7 +29,7 @@
     "pestphp/pest": "^2.16",
     "pestphp/pest-plugin-laravel": "^2.2",
     "roave/security-advisories": "dev-latest",
-    "spatie/laravel-ignition": "^2.2"
+    "spatie/laravel-ignition": "^2.3"
   },
   "autoload": {
     "psr-4": {
