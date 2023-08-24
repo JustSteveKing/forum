@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\Identity\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->string('role')->default(Role::USER->value);
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();
             $table->string('provider')->nullable();

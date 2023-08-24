@@ -15,6 +15,7 @@ Route::middleware('auth')->group(function (): void {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 Route::prefix('topics')->as('topics:')->group(
     base_path('routes/web/topics.php'),
 );
@@ -23,6 +24,9 @@ Route::prefix('discussions')->as('discussions:')->group(
     base_path('routes/web/discussions.php'),
 );
 
+Route::prefix('reports')->as('reports:')->group(
+    base_path('routes/web/reports.php'),
+);
 
 
 require __DIR__ . '/auth.php';

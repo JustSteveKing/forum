@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Identity\Role;
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -20,6 +21,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $name
  * @property string $email
  * @property string $username
+ * @property Role $role
  * @property string $password
  * @property null|string $remember_token
  * @property null|string $avatar
@@ -43,6 +45,7 @@ final class User extends Authenticatable implements MustVerifyEmail
         'name',
         'username',
         'email',
+        'role',
         'password',
         'avatar',
         'provider',
@@ -59,6 +62,7 @@ final class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'role' => Role::class,
     ];
 
     public function discussions(): HasMany
@@ -81,6 +85,14 @@ final class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(
             related: Mention::class,
+            foreignKey: 'user_id',
+        );
+    }
+
+    public function reports(): HasMany
+    {
+        return $this->hasMany(
+            related: Report::class,
             foreignKey: 'user_id',
         );
     }

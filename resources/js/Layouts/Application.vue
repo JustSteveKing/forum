@@ -52,7 +52,7 @@ const fetchResults = async (search: string) => {
   return data
 }
 
-const search = ref(true)
+const search = ref(false)
 const query = ref('')
 
 const results = (query: string) => {

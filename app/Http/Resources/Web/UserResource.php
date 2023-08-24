@@ -20,6 +20,7 @@ final class UserResource extends JsonResource
             'id' => $this->resource->id,
             'name' => $this->resource->name,
             'email' => $this->resource->email,
+            'role' => $this->resource->role->value,
             'avatar' => $this->resource->avatar ?? "https://unavatar.io/{$this->resource->email}",
             'provider' => [
                 'name' => $this->resource->provider,

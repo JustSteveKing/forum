@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Enums\Identity\Role;
 use App\Models\Discussion;
 use App\Models\Mention;
 use App\Models\Post;
@@ -19,6 +20,7 @@ final class DatabaseSeeder extends Seeder
             'name' => 'Steve McDougall',
             'email' => 'juststevemcd@gmail.com',
             'username' => 'juststeveking',
+            'role' => Role::ADMIN,
         ]);
 
         $topic = Topic::factory()->create([

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\Moderation\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,7 @@ return new class () extends Migration {
             $table->ulid('id')->primary();
 
             $table->string('title');
+            $table->string('status')->default(Status::PUBLISHED->value);
 
             $table->unsignedBigInteger('likes')->default(0);
             $table->unsignedBigInteger('views')->default(0);

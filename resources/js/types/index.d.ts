@@ -1,4 +1,5 @@
 export interface Post {
+    status: string;
     content: string;
     likes: number;
     user?: User;
@@ -15,6 +16,7 @@ export interface Date {
 export interface Discussion {
     id: string;
     title: string;
+    status: string;
     likes: number;
     views: number;
     topic?: Topic;
@@ -38,6 +40,7 @@ export interface User {
     id: number;
     name: string;
     email: string;
+    role: string;
     avatar: string;
     provider?: Provider;
     verified: Date;

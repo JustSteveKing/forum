@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\Moderation\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,6 +12,8 @@ return new class () extends Migration {
     {
         Schema::create('posts', static function (Blueprint $table): void {
             $table->ulid('id')->primary();
+
+            $table->string('status')->default(Status::PUBLISHED->value);
 
             $table->text('content');
 

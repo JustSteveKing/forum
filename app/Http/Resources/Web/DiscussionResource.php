@@ -19,6 +19,7 @@ final class DiscussionResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
+            'status' => $this->resource->status->value,
             'views' => $this->resource->views,
             'likes' => $this->resource->likes,
             'topic' => new TopicResource(
